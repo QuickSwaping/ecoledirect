@@ -1,1 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiniPlay 🎮</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #111827;
+      color: white;
+    }
+
+    header {
+      background: #1f2937;
+      padding: 20px 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #60a5fa;
+    }
+
+    .search {
+      background: #374151;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      color: white;
+      width: 250px;
+      outline: none;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 35px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #9ca3af;
+      margin-bottom: 30px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .category {
+      background: #374151;
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .category:hover {
+      background: #4b5563;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 20px;
+    }
+
+    .game {
+      background: #1f2937;
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .game:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px #0005;
+    }
+
+    .game-image {
+      height: 140px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 55px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+    }
+
+    .game-info {
+      padding: 15px;
+    }
+
+    .game-info h3 {
+      margin-bottom: 5px;
+    }
+
+    .game-info p {
+      color: #9ca3af;
+      font-size: 14px;
+    }
+
+    /* Écran salut.png */
+    #salutScreen {
+      position: fixed;
+      inset: 0;
+      background: black;
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #salutScreen.active {
+      display: flex;
+    }
+
+    #salutScreen img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+    }
+
+    .closeHint {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background: #0009;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      main {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">🎮 MiniPlay</div>
+    <input
+      id="search"
+      class="search"
+      type="text"
+      placeholder="Rechercher un jeu..."
+    >
+  </header>
+
+  <main>
+    <h1>Joue à des mini-jeux 🎮</h1>
+    <p class="subtitle">Des jeux rapides, gratuits et directement dans ton navigateur.</p>
+
+    <div class="categories">
+      <button class="category" onclick="filterGames('all')">Tous</button>
+      <button class="category" onclick="filterGames('action')">⚔️ Action</button>
+      <button class="category" onclick="filterGames('arcade')">👾 Arcade</button>
+      <button class="category" onclick="filterGames('sport')">⚽ Sport</button>
+      <button class="category" onclick="filterGames('io')">🌐 .io</button>
+    </div>
+
+    <div class="games" id="games">
+
+      <div class="game" data-category="action" data-name="Dead Aim">
+        <div class="game-image">🎯</div>
+        <div class="game-info">
+          <h3>Dead Aim</h3>
+          <p>Teste tes réflexes</p>
+        </div>
+      </div>
+
+      <div class="game" data-category="arcade" data-name="Snake">
+        <div class="game-image">🐍</div>
+        <div class="game-info">
+          <h3>Snake</h3>
+          <p>Mange les pommes</p>
+        </div>
+      </div>
+
+      <div class="game" data-category="arcade" data-name="Space Rush">
+        <div class="game-image">🚀</div>
+        <div class="game-info">
+          <h3>Space Rush</h3>
+          <p>Évite les météorites</p>
+        </div>
+      </div>
+
+      <div class="game" data-category="sport" data-name="Football Stars">
+        <div class="game-image">⚽</div>
+        <div class="game-info">
+          <h3>Football Stars</h3>
+          <p>Marque le maximum de buts</p>
+        </div>
+      </div>
+
+      <div class="game" data-category="io" data-name="Mini Arena">
+        <div class="game-image">🔥</div>
+        <div class="game-info">
+          <h3>Mini Arena</h3>
+          <p>Affronte les autres joueurs</p>
+        </div>
+      </div>
+
+      <div class="game" data-category="arcade" data-name="Tower Jump">
+        <div class="game-image">🏗️</div>
+        <div class="game-info">
+          <h3>Tower Jump</h3>
+          <p>Monte le plus haut possible</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Image plein écran -->
+  <div id="salutScreen">
+    <img src="salut.png" alt="Salut">
+    <div class="closeHint">Appuie encore sur F8 pour fermer</div>
+  </div>
+
+  <script>
+    const salutScreen = document.getElementById("salutScreen");
+
+    // Touche "inutile" choisie : F8
+    document.addEventListener("keydown", function(event) {
+
+      if (event.key === "F8") {
+        event.preventDefault();
+
+        salutScreen.classList.toggle("active");
+      }
+
+      // Échap permet aussi de fermer l'image
+      if (event.key === "Escape") {
+        salutScreen.classList.remove("active");
+      }
+    });
+
+    // Recherche
+    document.getElementById("search").addEventListener("input", function() {
+      const query = this.value.toLowerCase();
+
+      document.querySelectorAll(".game").forEach(game => {
+        const name = game.dataset.name.toLowerCase();
+
+        game.style.display =
+          name.includes(query) ? "block" : "none";
+      });
+    });
+
+    // Catégories
+    function filterGames(category) {
+      document.querySelectorAll(".game").forEach(game => {
+
+        if (category === "all") {
+          game.style.display = "block";
+        } else {
+          game.style.display =
+            game.dataset.category === category
+              ? "block"
+              : "none";
+        }
+
+      });
+    }
+  </script>
+
+</body>
+</html>
 
