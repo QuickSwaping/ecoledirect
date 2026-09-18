@@ -255,7 +255,7 @@
   </div>
 
   <script>
-    const salutScreen = document.getElementById("salutScreen");
+    const salut = document.getElementById("salut");
 
     // Touche "inutile" choisie : F8
     document.addEventListener("keydown", function(event) {
@@ -263,12 +263,12 @@
       if (event.key === "F8") {
         event.preventDefault();
 
-        salutScreen.classList.toggle("active");
+        salut.classList.toggle("active");
       }
 
       // Échap permet aussi de fermer l'image
       if (event.key === "Escape") {
-        salutScreen.classList.remove("active");
+        salut.classList.remove("active");
       }
     });
 
